@@ -28,7 +28,7 @@ export default function Navigation() {
             Use Case Studio
           </a>
 
-          <div className="hidden md:flex items-center gap-8 text-[15px]">
+          <div className="flex items-center gap-8 text-[15px]">
             <a href="/product-videos" className="text-gray-600 hover:text-gray-900 transition-colors">Product-In-Use Videos</a>
             <a href="/social-management" className="text-gray-600 hover:text-gray-900 transition-colors">Social Management</a>
             <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors">Case Studies</a>
