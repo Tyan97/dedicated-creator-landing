@@ -1,0 +1,2081 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dedicated Creator for AI SaaS Short-Form</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #0A0A0A;
+            --white: #FAFAF9;
+            --cream: #F5F4F0;
+            --accent: #FF4D00;
+            --accent-soft: #FFF0E8;
+            --gray-100: #E8E8E6;
+            --gray-200: #D4D4D0;
+            --gray-400: #9C9C98;
+            --gray-600: #6B6B67;
+            --gray-800: #3D3D3A;
+            
+            --font-display: 'Sora', -apple-system, sans-serif;
+            --font-body: 'Sora', -apple-system, sans-serif;
+            
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        ::selection {
+            background: var(--accent);
+            color: var(--white);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--cream);
+            color: var(--black);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* Grain overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10000;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 clamp(24px, 5vw, 80px);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 0;
+            transition: all 0.4s var(--ease-out-expo);
+        }
+
+        nav.scrolled {
+            background: rgba(245, 244, 240, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--black);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-cta {
+            background: var(--black);
+            color: var(--white);
+            padding: 14px 28px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            transition: all 0.3s var(--ease-out-expo);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-cta::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--accent);
+            transform: translateY(100%);
+            transition: transform 0.3s var(--ease-out-expo);
+        }
+
+        .nav-cta span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .nav-cta:hover::before {
+            transform: translateY(0);
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 140px 0 100px;
+            position: relative;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .hero-text {
+            max-width: 640px;
+        }
+
+        .hero-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--white);
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--gray-600);
+            margin-bottom: 32px;
+            border: 1px solid var(--gray-100);
+        }
+
+        .hero-label::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(44px, 6vw, 72px);
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+            margin-bottom: 32px;
+        }
+
+        .hero h1 em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--gray-600);
+            max-width: 480px;
+            margin-bottom: 48px;
+            line-height: 1.7;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--white);
+            padding: 18px 36px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+            transition: all 0.3s var(--ease-out-expo);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px -10px rgba(255, 77, 0, 0.4);
+        }
+
+        .btn-primary svg {
+            transition: transform 0.3s var(--ease-out-expo);
+        }
+
+        .btn-primary:hover svg {
+            transform: translateX(4px);
+        }
+
+        .btn-secondary {
+            color: var(--black);
+            padding: 18px 24px;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-secondary:hover {
+            color: var(--accent);
+        }
+
+        /* Hero visual */
+        .hero-visual {
+            position: relative;
+            height: 600px;
+        }
+
+        .hero-card {
+            position: absolute;
+            background: var(--white);
+            border-radius: 24px;
+            box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+        }
+
+        .hero-card-1 {
+            width: 280px;
+            height: 380px;
+            top: 0;
+            right: 60px;
+            transform: rotate(3deg);
+            animation: float1 6s ease-in-out infinite;
+        }
+
+        .hero-card-2 {
+            width: 240px;
+            height: 320px;
+            bottom: 40px;
+            left: 0;
+            transform: rotate(-5deg);
+            animation: float2 7s ease-in-out infinite;
+        }
+
+        .hero-card-3 {
+            width: 200px;
+            height: 260px;
+            top: 120px;
+            right: -20px;
+            transform: rotate(-2deg);
+            animation: float3 5s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes float1 {
+            0%, 100% { transform: rotate(3deg) translateY(0); }
+            50% { transform: rotate(3deg) translateY(-15px); }
+        }
+
+        @keyframes float2 {
+            0%, 100% { transform: rotate(-5deg) translateY(0); }
+            50% { transform: rotate(-5deg) translateY(-20px); }
+        }
+
+        @keyframes float3 {
+            0%, 100% { transform: rotate(-2deg) translateY(0); }
+            50% { transform: rotate(-2deg) translateY(-12px); }
+        }
+
+        .card-video-preview {
+            width: 100%;
+            height: 70%;
+            background: linear-gradient(135deg, var(--gray-100) 0%, var(--gray-200) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-video-preview svg {
+            width: 48px;
+            height: 48px;
+            color: var(--gray-400);
+        }
+
+        .card-meta {
+            padding: 20px;
+        }
+
+        .card-meta-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .card-meta-avatar {
+            width: 28px;
+            height: 28px;
+            background: var(--accent-soft);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .card-meta-name {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .card-meta-stats {
+            font-size: 12px;
+            color: var(--gray-400);
+        }
+
+        /* Trust bar */
+        .trust-bar {
+            padding: 60px 0;
+            border-top: 1px solid var(--gray-100);
+            border-bottom: 1px solid var(--gray-100);
+            background: var(--white);
+        }
+
+        .trust-items {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            flex-wrap: wrap;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            color: var(--gray-600);
+        }
+
+        .trust-item svg {
+            width: 20px;
+            height: 20px;
+            color: var(--accent);
+        }
+
+        /* Section base */
+        section {
+            padding: 120px 0;
+        }
+
+        .section-header {
+            margin-bottom: 80px;
+        }
+
+        .section-label {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(32px, 4.5vw, 52px);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            max-width: 700px;
+        }
+
+        .section-title em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        /* How it works */
+        .how-it-works {
+            background: var(--black);
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .how-it-works::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 77, 0, 0.08) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .how-it-works .section-label {
+            color: var(--accent);
+        }
+
+        .how-it-works .section-title {
+            color: var(--white);
+        }
+
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            position: relative;
+        }
+
+        .step {
+            padding: 48px 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.02);
+            transition: all 0.4s var(--ease-out-expo);
+            position: relative;
+        }
+
+        .step:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 77, 0, 0.3);
+            transform: translateY(-8px);
+        }
+
+        .step-number {
+            font-family: var(--font-display);
+            font-size: 56px;
+            font-weight: 700;
+            color: var(--accent);
+            line-height: 1;
+            margin-bottom: 24px;
+            opacity: 0.9;
+        }
+
+        .step h3 {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .step p {
+            color: var(--gray-400);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .capacity-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 64px;
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 100px;
+            font-size: 13px;
+            color: var(--gray-400);
+        }
+
+        .capacity-badge svg {
+            color: var(--accent);
+        }
+
+        /* What you get */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .feature-card {
+            padding: 48px;
+            background: var(--white);
+            border-radius: 24px;
+            border: 1px solid var(--gray-100);
+            transition: all 0.4s var(--ease-out-expo);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 0;
+            background: var(--accent);
+            transition: height 0.4s var(--ease-out-expo);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-card:hover::before {
+            height: 100%;
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--accent-soft);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .feature-icon svg {
+            width: 24px;
+            height: 24px;
+            color: var(--accent);
+        }
+
+        .feature-card h4 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            color: var(--gray-600);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* Pricing */
+        .pricing-section {
+            background: var(--white);
+        }
+
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .pricing-header .section-title {
+            margin: 0 auto;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+            max-width: 900px;
+            margin: 0 auto 80px;
+        }
+
+        .price-card {
+            padding: 48px;
+            border-radius: 28px;
+            border: 1px solid var(--gray-100);
+            background: var(--cream);
+            position: relative;
+            transition: all 0.4s var(--ease-out-expo);
+        }
+
+        .price-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .price-card.featured {
+            background: var(--black);
+            color: var(--white);
+            border-color: var(--black);
+        }
+
+        .price-card.featured .price-card-label {
+            background: var(--accent);
+            color: var(--white);
+        }
+
+        .price-card-label {
+            position: absolute;
+            top: -14px;
+            left: 48px;
+            padding: 8px 16px;
+            background: var(--black);
+            color: var(--white);
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .price-card h3 {
+            font-family: var(--font-display);
+            font-size: 26px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .price-amount {
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+            margin-bottom: 8px;
+        }
+
+        .price-amount .currency {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .price-amount .value {
+            font-family: var(--font-display);
+            font-size: 56px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1;
+        }
+
+        .price-amount .period {
+            font-size: 16px;
+            color: var(--gray-400);
+        }
+
+        .price-card.featured .price-amount .period {
+            color: var(--gray-400);
+        }
+
+        .price-desc {
+            font-size: 16px;
+            color: var(--gray-600);
+            margin-bottom: 8px;
+        }
+
+        .price-note {
+            font-size: 13px;
+            color: var(--gray-400);
+            margin-bottom: 32px;
+            font-style: italic;
+        }
+
+        .price-card.featured .price-note {
+            color: var(--gray-400);
+        }
+
+        .price-card.featured .price-desc {
+            color: var(--gray-400);
+        }
+
+        .price-card .btn-primary {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .price-card.featured .btn-primary {
+            background: var(--white);
+            color: var(--black);
+        }
+
+        .price-card.featured .btn-primary:hover {
+            box-shadow: 0 20px 40px -10px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Add-ons */
+        .addons {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .addons-title {
+            font-family: var(--font-display);
+            font-size: 28px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .addon-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .addon-card {
+            padding: 28px;
+            background: var(--cream);
+            border-radius: 20px;
+            border: 1px solid var(--gray-100);
+            transition: all 0.3s ease;
+        }
+
+        .addon-card:hover {
+            border-color: var(--accent);
+        }
+
+        .addon-card h4 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .addon-card .addon-price {
+            font-size: 14px;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .addon-card p {
+            font-size: 13px;
+            color: var(--gray-400);
+            margin-top: 12px;
+            line-height: 1.5;
+        }
+
+        /* Requirements */
+        .requirements-section {
+            background: var(--cream);
+        }
+
+        .requirements-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+        }
+
+        .requirements-card {
+            padding: 56px;
+            background: var(--white);
+            border-radius: 28px;
+            border: 1px solid var(--gray-100);
+        }
+
+        .requirements-card.not-fit {
+            background: var(--cream);
+        }
+
+        .requirements-card h3 {
+            font-family: var(--font-display);
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 32px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .requirements-card h3 .icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .requirements-card.fit h3 .icon {
+            background: #DCFCE7;
+            color: #16A34A;
+        }
+
+        .requirements-card.not-fit h3 .icon {
+            background: #FEE2E2;
+            color: #DC2626;
+        }
+
+        .requirements-list {
+            list-style: none;
+        }
+
+        .requirements-list li {
+            padding: 16px 0;
+            border-bottom: 1px solid var(--gray-100);
+            font-size: 15px;
+            color: var(--gray-600);
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+
+        .requirements-list li:last-child {
+            border-bottom: none;
+        }
+
+        .requirements-list li svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+            margin-top: 3px;
+        }
+
+        .requirements-card.fit .requirements-list li svg {
+            color: #16A34A;
+        }
+
+        .requirements-card.not-fit .requirements-list li svg {
+            color: #DC2626;
+        }
+
+        /* FAQ */
+        .faq-section {
+            background: var(--white);
+        }
+
+        .faq-grid {
+            max-width: 800px;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .faq-question {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 28px 0;
+            text-align: left;
+            font-family: var(--font-body);
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--black);
+            transition: color 0.3s ease;
+        }
+
+        .faq-question:hover {
+            color: var(--accent);
+        }
+
+        .faq-question svg {
+            width: 24px;
+            height: 24px;
+            color: var(--gray-400);
+            transition: transform 0.4s var(--ease-out-expo);
+        }
+
+        .faq-item.open .faq-question svg {
+            transform: rotate(45deg);
+            color: var(--accent);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s var(--ease-out-expo);
+        }
+
+        .faq-answer-inner {
+            padding-bottom: 28px;
+            color: var(--gray-600);
+            font-size: 16px;
+            line-height: 1.7;
+            max-width: 640px;
+        }
+
+        .faq-item.open .faq-answer {
+            max-height: 200px;
+        }
+
+        /* Final CTA */
+        .final-cta {
+            padding: 160px 0;
+            background: var(--black);
+            color: var(--white);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .final-cta::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120%;
+            height: 120%;
+            background: radial-gradient(circle, rgba(255, 77, 0, 0.15) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .final-cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .final-cta h2 {
+            font-family: var(--font-display);
+            font-size: clamp(36px, 5vw, 60px);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 24px;
+        }
+
+        .final-cta h2 em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        .final-cta p {
+            font-size: 18px;
+            color: var(--gray-400);
+            margin-bottom: 48px;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .final-cta .btn-primary {
+            background: var(--white);
+            color: var(--black);
+        }
+
+        .final-cta .btn-primary:hover {
+            box-shadow: 0 20px 40px -10px rgba(255, 255, 255, 0.3);
+        }
+
+        .reply-note {
+            margin-top: 24px;
+            font-size: 14px;
+            color: var(--gray-600);
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 0;
+            background: var(--black);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 13px;
+            color: var(--gray-600);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.open {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal {
+            background: var(--white);
+            border-radius: 32px;
+            max-width: 640px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.95) translateY(20px);
+            transition: transform 0.4s var(--ease-out-expo);
+        }
+
+        .modal-overlay.open .modal {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-header {
+            padding: 40px 40px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .modal-header h2 {
+            font-family: var(--font-display);
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .modal-header p {
+            color: var(--gray-600);
+            font-size: 15px;
+            margin-top: 8px;
+        }
+
+        .modal-close {
+            background: var(--cream);
+            border: none;
+            cursor: pointer;
+            padding: 12px;
+            border-radius: 50%;
+            color: var(--gray-600);
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: var(--gray-100);
+            color: var(--black);
+        }
+
+        .modal-body {
+            padding: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--black);
+            letter-spacing: 0.02em;
+        }
+
+        .form-group label span {
+            color: var(--accent);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 16px 20px;
+            border: 1px solid var(--gray-200);
+            border-radius: 16px;
+            font-size: 15px;
+            font-family: var(--font-body);
+            transition: all 0.3s ease;
+            background: var(--cream);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: var(--white);
+            box-shadow: 0 0 0 4px var(--accent-soft);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 12px;
+        }
+
+        .radio-group-three {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .radio-option {
+            flex: 1;
+            position: relative;
+        }
+
+        .radio-option input {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .radio-option label {
+            display: block;
+            padding: 20px;
+            border: 1px solid var(--gray-200);
+            border-radius: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            background: var(--cream);
+        }
+
+        .radio-option input:checked + label {
+            border-color: var(--accent);
+            background: var(--accent-soft);
+            color: var(--accent);
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .checkbox-option {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 16px 20px;
+            background: var(--cream);
+            border-radius: 16px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-option:hover {
+            border-color: var(--gray-200);
+        }
+
+        .checkbox-option input {
+            width: 20px;
+            height: 20px;
+            margin-top: 2px;
+            accent-color: var(--accent);
+        }
+
+        .checkbox-option .checkbox-content {
+            flex: 1;
+        }
+
+        .checkbox-option .checkbox-label {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .checkbox-option .checkbox-price {
+            font-size: 13px;
+            color: var(--accent);
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        .form-divider {
+            height: 1px;
+            background: var(--gray-100);
+            margin: 32px 0;
+        }
+
+        .form-section-title {
+            font-family: var(--font-display);
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            margin-top: 16px;
+            padding: 20px 36px;
+        }
+
+        /* Success state */
+        .success-state {
+            text-align: center;
+            padding: 80px 48px;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 32px;
+            box-shadow: 0 20px 40px -10px rgba(34, 197, 94, 0.4);
+        }
+
+        .success-icon svg {
+            width: 36px;
+            height: 36px;
+            color: white;
+        }
+
+        .success-state h2 {
+            font-family: var(--font-display);
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .success-state p {
+            color: var(--gray-600);
+            font-size: 16px;
+            max-width: 400px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .success-state .btn-secondary {
+            margin-top: 40px;
+            padding: 16px 32px;
+            background: var(--cream);
+            border-radius: 100px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .hero-text {
+                max-width: 100%;
+            }
+            
+            .hero p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .hero-ctas {
+                justify-content: center;
+            }
+            
+            .hero-visual {
+                display: none;
+            }
+            
+            .steps-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .addon-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .requirements-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .radio-group {
+                flex-direction: column;
+            }
+            
+            .trust-items {
+                gap: 24px;
+            }
+            
+            .modal-header,
+            .modal-body {
+                padding: 24px;
+            }
+            
+            .modal-header {
+                padding-bottom: 0;
+            }
+        }
+
+        /* Scroll animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s var(--ease-out-expo);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="nav">
+        <div class="container">
+            <a href="#" class="logo">Dedicated Creator</a>
+            <a href="#" class="nav-cta" onclick="openModal(); return false;"><span>Apply for a slot</span></a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="hero-label">Limited slots • Now accepting applications</div>
+                    <h1>Short-form product demos for <em>AI SaaS</em></h1>
+                    <p>We turn your on-screen workflows into a repeatable short-form format — delivered monthly, approved async, and executed by one dedicated creator. No meetings. No creative chaos.</p>
+                    <div class="hero-ctas">
+                        <a href="#" class="btn-primary" onclick="openModal(); return false;">
+                            Apply for a slot
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
+                        </a>
+                        <a href="#packages" class="btn-secondary">
+                            View packages
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="hero-card hero-card-1">
+                        <div class="card-video-preview">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z" />
+                            </svg>
+                        </div>
+                        <div class="card-meta">
+                            <div class="card-meta-brand">
+                                <div class="card-meta-avatar">AI</div>
+                                <span class="card-meta-name">AIWriter Pro</span>
+                            </div>
+                            <div class="card-meta-stats">142K views · 2d ago</div>
+                        </div>
+                    </div>
+                    <div class="hero-card hero-card-2">
+                        <div class="card-video-preview">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z" />
+                            </svg>
+                        </div>
+                        <div class="card-meta">
+                            <div class="card-meta-brand">
+                                <div class="card-meta-avatar">C</div>
+                                <span class="card-meta-name">CodeAI</span>
+                            </div>
+                            <div class="card-meta-stats">89K views · 1w ago</div>
+                        </div>
+                    </div>
+                    <div class="hero-card hero-card-3">
+                        <div class="card-video-preview">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z" />
+                            </svg>
+                        </div>
+                        <div class="card-meta">
+                            <div class="card-meta-brand">
+                                <div class="card-meta-avatar">D</div>
+                                <span class="card-meta-name">DataMind</span>
+                            </div>
+                            <div class="card-meta-stats">56K views</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust bar -->
+    <div class="trust-bar">
+        <div class="container">
+            <div class="trust-items">
+                <div class="trust-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    AI SaaS only
+                </div>
+                <div class="trust-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Screen-recorded demos
+                </div>
+                <div class="trust-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Dedicated creator (not a pool)
+                </div>
+                <div class="trust-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Async approvals (no calls)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- How it works -->
+    <section class="how-it-works">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">How it works</span>
+                <h2 class="section-title">Three steps. <em>No calls.</em> No drag.</h2>
+            </div>
+            
+            <div class="steps-container">
+                <div class="step reveal reveal-delay-1">
+                    <div class="step-number">01</div>
+                    <h3>Apply (5 minutes)</h3>
+                    <p>Tell us what your product does, who it's for, and share 1–3 reference videos you want us to match.</p>
+                </div>
+                <div class="step reveal reveal-delay-2">
+                    <div class="step-number">02</div>
+                    <h3>We confirm fit</h3>
+                    <p>We review your product and workflow async to make sure we can execute your format consistently at volume.</p>
+                </div>
+                <div class="step reveal reveal-delay-3">
+                    <div class="step-number">03</div>
+                    <h3>Subscribe & ship</h3>
+                    <p>If approved, you'll get onboarding steps + a subscription link. Your creator starts production immediately after assets are in.</p>
+                </div>
+            </div>
+            
+            <div class="capacity-badge reveal">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+                We cap monthly capacity to protect quality (first come, first approved)
+            </div>
+        </div>
+    </section>
+
+    <!-- What you get -->
+    <section id="features">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">What you get</span>
+                <h2 class="section-title">One proven format, <em>executed flawlessly</em> at scale</h2>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card reveal reveal-delay-1">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                        </svg>
+                    </div>
+                    <h4>A dedicated creator</h4>
+                    <p>One person learns your product, voice, and workflow — so quality improves month after month.</p>
+                </div>
+                <div class="feature-card reveal reveal-delay-2">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.5 12a7.5 7.5 0 0015 0m-15 0a7.5 7.5 0 1115 0m-15 0H3m16.5 0H21m-1.5 0H12m-8.457 3.077l1.41-.513m14.095-5.13l1.41-.513M5.106 17.785l1.15-.964m11.49-9.642l1.149-.964M7.501 19.795l.75-1.3m7.5-12.99l.75-1.3m-6.063 16.658l.26-1.477m2.605-14.772l.26-1.477m0 17.726l-.26-1.477M10.698 4.614l-.26-1.477M16.5 19.794l-.75-1.299M7.5 4.205L12 12m6.894 5.785l-1.149-.964M6.256 7.178l-1.15-.964m15.352 8.864l-1.41-.513M4.954 9.435l-1.41-.514M12.002 12l-3.75 6.495" />
+                        </svg>
+                    </div>
+                    <h4>Repeatable format execution</h4>
+                    <p>Your approved structure (hook → demo → payoff) reproduced consistently across every video.</p>
+                </div>
+                <div class="feature-card reveal reveal-delay-3">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+                        </svg>
+                    </div>
+                    <h4>Predictable monthly delivery</h4>
+                    <p>A reliable cadence you can plan campaigns around — without scrambling for content.</p>
+                </div>
+                <div class="feature-card reveal reveal-delay-4">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+                        </svg>
+                    </div>
+                    <h4>Optional posting + CTA system</h4>
+                    <p>We can publish for you across major platforms with CTAs and posting consistency baked in.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing-section" id="packages">
+        <div class="container">
+            <div class="pricing-header reveal">
+                <span class="section-label">Packages</span>
+                <h2 class="section-title">Simple, <em>predictable</em> pricing</h2>
+            </div>
+            
+            <div class="pricing-grid">
+                <div class="price-card reveal reveal-delay-1">
+                    <h3>Starter</h3>
+                    <div class="price-amount">
+                        <span class="currency">$</span>
+                        <span class="value">1,000</span>
+                        <span class="period">/ month</span>
+                    </div>
+                    <p class="price-desc">10 short-form demo videos delivered monthly</p>
+                    <p class="price-note">Best for testing a format + building consistency</p>
+                    <a href="#" class="btn-primary" onclick="openModal(); return false;">
+                        Apply for Starter
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                    </a>
+                </div>
+                <div class="price-card featured reveal reveal-delay-2">
+                    <div class="price-card-label">Most popular</div>
+                    <h3>Growth</h3>
+                    <div class="price-amount">
+                        <span class="currency">$</span>
+                        <span class="value">2,000</span>
+                        <span class="period">/ month</span>
+                    </div>
+                    <p class="price-desc">30 short-form demo videos delivered monthly</p>
+                    <p class="price-note">Best for daily posting + aggressive iteration</p>
+                    <a href="#" class="btn-primary" onclick="openModal(); return false;">
+                        Apply for Growth
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="addons reveal">
+                <h3 class="addons-title">Add-ons (optional)</h3>
+                <div class="addon-grid">
+                    <div class="addon-card">
+                        <h4>Recut Pack + Raw files</h4>
+                        <div class="addon-price">+$500 / month</div>
+                        <p>3 extra edit formats per video + source files so your team can repurpose freely.</p>
+                    </div>
+                    <div class="addon-card">
+                        <h4>Posting + CTA System</h4>
+                        <div class="addon-price">$600 / platform / month</div>
+                        <p>TikTok, IG Reels, YouTube Shorts, or Facebook Reels — posted consistently with CTAs.</p>
+                    </div>
+                    <div class="addon-card">
+                        <h4>All 4 Platforms Bundle</h4>
+                        <div class="addon-price">$1,000 / month total</div>
+                        <p>Full posting coverage across all platforms with CTAs included.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Requirements -->
+    <section class="requirements-section" id="requirements">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">Requirements</span>
+                <h2 class="section-title">We're selective to <em>protect results</em></h2>
+            </div>
+            
+            <div class="requirements-grid">
+                <div class="requirements-card fit reveal reveal-delay-1">
+                    <h3>
+                        <span class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                        </span>
+                        Great fit if…
+                    </h3>
+                    <ul class="requirements-list">
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            You're an AI SaaS product (or AI-first software)
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            Your product can be clearly shown on screen (workflows matter)
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            You can share 1–3 reference videos to match
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            You want consistent volume (not one-off "viral miracles")
+                        </li>
+                    </ul>
+                </div>
+                <div class="requirements-card not-fit reveal reveal-delay-2">
+                    <h3>
+                        <span class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </span>
+                        Not a fit if…
+                    </h3>
+                    <ul class="requirements-list">
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                            You sell physical products or need lifestyle shoots
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                            You're looking for influencer-style UGC campaigns
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                            You require weekly strategy calls and constant custom ideation
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                            You want "guaranteed virality" (we don't sell that)
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section" id="faq">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">FAQ</span>
+                <h2 class="section-title">Common questions</h2>
+            </div>
+            
+            <div class="faq-grid reveal">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Do you need a call?
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">Nope. Everything runs async: application → approval → onboarding → delivery.</div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        What do you need from us to start?
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">Access to your product (or a demo environment), brand notes, and 1–3 reference videos.</div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Do you write scripts?
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">We follow your approved format. Most videos are built from a repeatable hook + on-screen workflow + payoff.</div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Can you match our existing style?
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">Yes — that's the point. We lock a format and execute it consistently across every deliverable.</div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        How do approvals work?
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">You approve the format and direction async. We keep production moving without bottlenecks.</div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Do you post for us?
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">Optional add-on. We can publish with CTAs and maintain platform consistency.</div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        What if we want multiple versions per video?
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">Add the Recut Pack + Raw files to get extra formats and source files.</div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Do you guarantee performance?
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">No honest team can promise virality. We focus on consistent output + clean execution so you can iterate fast.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta">
+        <div class="container">
+            <div class="final-cta-content reveal">
+                <h2>Ready for a content engine that <em>doesn't need meetings?</em></h2>
+                <p>Apply to work with a dedicated creator. If we're a fit, you'll get onboarding steps and start shipping short-form demos fast.</p>
+                <a href="#" class="btn-primary" onclick="openModal(); return false;">
+                    Apply for a slot
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                </a>
+                <p class="reply-note">We review applications async and reply by email.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© Dedicated Creator. AI SaaS short-form, executed monthly.</p>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal">
+            <div id="form-view">
+                <div class="modal-header">
+                    <div>
+                        <h2>Apply to work together</h2>
+                        <p>Tell us what you're building and the format you want us to match. If it's a fit, we'll reply with next steps.</p>
+                    </div>
+                    <button class="modal-close" onclick="closeModal()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="application-form" onsubmit="submitForm(event)">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Full name <span>*</span></label>
+                                <input type="text" name="name" placeholder="Jane Smith" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Work email <span>*</span></label>
+                                <input type="email" name="email" placeholder="jane@company.com" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Company / product name <span>*</span></label>
+                                <input type="text" name="company" placeholder="Acme AI" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Website <span>*</span></label>
+                                <input type="url" name="website" placeholder="https://..." required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Primary platform <span>*</span></label>
+                            <select name="platform" required>
+                                <option value="">Select platform...</option>
+                                <option value="tiktok">TikTok</option>
+                                <option value="instagram">Instagram</option>
+                                <option value="youtube">YouTube</option>
+                                <option value="facebook">Facebook</option>
+                                <option value="not_sure">Not sure yet</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>What does your product do? <span>*</span></label>
+                            <textarea name="product_description" placeholder="One sentence + who it's for..." required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Can your product be shown on screen? <span>*</span></label>
+                            <div class="radio-group radio-group-three">
+                                <div class="radio-option">
+                                    <input type="radio" name="screen_based" id="screen_yes" value="yes" required>
+                                    <label for="screen_yes">Yes</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" name="screen_based" id="screen_mostly" value="mostly">
+                                    <label for="screen_mostly">Mostly</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" name="screen_based" id="screen_no" value="not_really">
+                                    <label for="screen_no">Not really</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-divider"></div>
+                        
+                        <div class="form-section-title">Reference videos</div>
+                        
+                        <div class="form-group">
+                            <label>Paste 1–3 video links you want us to match <span>*</span></label>
+                            <textarea name="reference_videos" placeholder="Paste 1–3 links..." required></textarea>
+                        </div>
+                        
+                        <div class="form-divider"></div>
+                        
+                        <div class="form-section-title">Which package are you applying for?</div>
+                        
+                        <div class="form-group">
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" name="plan" id="plan_10" value="starter" required>
+                                    <label for="plan_10">Starter (10/mo)<br><small style="color: var(--gray-400); font-weight: 400;">$1,000/mo</small></label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" name="plan" id="plan_30" value="growth">
+                                    <label for="plan_30">Growth (30/mo)<br><small style="color: var(--gray-400); font-weight: 400;">$2,000/mo</small></label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-divider"></div>
+                        
+                        <div class="form-section-title">Add-ons (optional)</div>
+                        
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <label class="checkbox-option">
+                                    <input type="checkbox" name="addon_recut" value="recut">
+                                    <div class="checkbox-content">
+                                        <div class="checkbox-label">Recut Pack + Raw files</div>
+                                        <div class="checkbox-price">+$500/mo</div>
+                                    </div>
+                                </label>
+                                <label class="checkbox-option">
+                                    <input type="checkbox" name="addon_posting" value="posting">
+                                    <div class="checkbox-content">
+                                        <div class="checkbox-label">Posting + CTA System</div>
+                                        <div class="checkbox-price">$600/platform/mo</div>
+                                    </div>
+                                </label>
+                                <label class="checkbox-option">
+                                    <input type="checkbox" name="addon_posting_all" value="all_platforms" id="all_platforms">
+                                    <div class="checkbox-content">
+                                        <div class="checkbox-label">All 4 Platforms Bundle</div>
+                                        <div class="checkbox-price">$1,000/mo total</div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-divider"></div>
+                        
+                        <div class="form-group">
+                            <label>Anything else we should know?</label>
+                            <textarea name="notes" placeholder="Brand notes, constraints, examples you like..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary submit-btn">
+                            Submit application
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div id="success-view" class="success-state" style="display: none;">
+                <div class="success-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                </div>
+                <h2>Application received</h2>
+                <p>Thanks — we'll review your submission and reply by email with next steps.</p>
+                <button class="btn-secondary" onclick="closeModal()">Back to site</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Navigation scroll effect
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Reveal on scroll
+        const reveals = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            reveals.forEach(el => {
+                const top = el.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                if (top < windowHeight - 100) {
+                    el.classList.add('visible');
+                }
+            });
+        };
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll(); // Initial check
+
+        // Modal functions
+        function openModal() {
+            document.getElementById('modal').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal() {
+            document.getElementById('modal').classList.remove('open');
+            document.body.style.overflow = '';
+            setTimeout(() => {
+                document.getElementById('form-view').style.display = 'block';
+                document.getElementById('success-view').style.display = 'none';
+                document.getElementById('application-form').reset();
+            }, 300);
+        }
+        
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeModal();
+        });
+        
+        function submitForm(e) {
+            e.preventDefault();
+            document.getElementById('form-view').style.display = 'none';
+            document.getElementById('success-view').style.display = 'block';
+        }
+        
+        // All platforms checkbox logic
+        document.getElementById('all_platforms').addEventListener('change', function() {
+            const platformCheckboxes = document.querySelectorAll('input[name^="addon_posting_"]:not(#all_platforms)');
+            platformCheckboxes.forEach(cb => {
+                cb.checked = false;
+                cb.disabled = this.checked;
+            });
+        });
+        
+        // FAQ accordion
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const item = button.parentElement;
+                const isOpen = item.classList.contains('open');
+                document.querySelectorAll('.faq-item').forEach(faq => faq.classList.remove('open'));
+                if (!isOpen) item.classList.add('open');
+            });
+        });
+        
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
