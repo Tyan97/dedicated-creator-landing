@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Bash(powershell.exe -Command \"node --version\")",
+      "Bash(powershell.exe -Command \"cd ''c:\\\\Users\\\\tyan3\\\\Desktop\\\\dedicated-creator-landing''; npm install\")",
+      "Bash(git add:*)"
+    ]
+  }
+}
