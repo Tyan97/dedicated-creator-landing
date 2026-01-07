@@ -9,13 +9,13 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#FAFAFA",
-        "background-dark": "#0B0F17",
-        accent: "#0EA5E9", // electric blue
-        "accent-alt": "#10B981", // neon green option
+        background: "#F5F4F0", // cream background
+        "background-dark": "#0A0A0A",
+        accent: "#FF4D00", // orange accent
+        "accent-soft": "#FFF0E8", // soft orange
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
+        sans: ["var(--font-sora)", "system-ui", "sans-serif"],
       },
       borderRadius: {
         DEFAULT: "16px",
