@@ -8,7 +8,8 @@
       "Bash(git commit -m \"$\\(cat <<''EOF''\nConvert to Next.js with modern component architecture\n\n- Migrate from static HTML to Next.js 14 with App Router\n- Add TypeScript for type safety\n- Implement Tailwind CSS for styling\n- Create modular React components:\n  * Navigation with sticky scroll effect\n  * Hero with floating video cards and image support\n  * Social proof badges\n  * Service cards \\(What We Do\\)\n  * Video format showcase\n  * 4-step How It Works\n  * Pricing tiers with add-ons\n  * Fit check comparison\n  * FAQ accordion\n  * Final CTA section\n  * Footer\n- Add premium SaaS design with electric blue accent\n- Include micro-animations and hover effects\n- Support for Next.js Image optimization\n- Add setup scripts and documentation\n\n🤖 Generated with Claude Code\nhttps://claude.com/claude-code\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
       "Bash(git config:*)",
       "Bash(git push:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(powershell.exe -Command \"Get-Process | Where-Object {$_ProcessName -like ''*node*''} | Select-Object Id, ProcessName\")"
     ]
   }
 }
