@@ -29,10 +29,10 @@ export default function Navigation() {
           </a>
 
           <div className="hidden md:flex items-center gap-8 text-[15px]">
-            <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors">Product-In-Use Videos</a>
-            <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors">Social Management</a>
+            <a href="/product-videos" className="text-gray-600 hover:text-gray-900 transition-colors">Product-In-Use Videos</a>
+            <a href="/social-management" className="text-gray-600 hover:text-gray-900 transition-colors">Social Management</a>
             <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors">Case Studies</a>
-            <a href="#packages" className="text-gray-600 hover:text-gray-900 transition-colors">Pricing</a>
+            <a href="/#packages" className="text-gray-600 hover:text-gray-900 transition-colors">Pricing</a>
           </div>
 
           <button className="px-6 py-2.5 bg-gray-900 text-white text-[14px] font-medium rounded-full hover:bg-gray-800 transition-all hover:scale-105">
